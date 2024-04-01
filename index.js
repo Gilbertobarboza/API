@@ -4,10 +4,10 @@ const app = express()
 app.use(express.json())
 const users = []
 const products = []
-const po0rt = 3000
+const port = 3000
 
 
-app.use(bodyParser.json())
+app.use(bodyparser.urlencoded({extended:false}))
 
 app.get('/users', (request, response) => {
     return response.json(users)
@@ -27,7 +27,7 @@ app.post('/login', (request, response) => {
     const { username, password } = request.body
     
     const user = users.find(user => user.username === username && user.password === password)
-    if (user) {
+    if (!user) {
         return res.status(401).send('credenciais inválidas')
     }
 response.send("login realizado com sucesso")
